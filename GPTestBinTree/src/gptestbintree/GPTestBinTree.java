@@ -25,17 +25,6 @@ public class GPTestBinTree {
    //TestDivisible testDiv = new TestDivisible();
        //boolean div3 = testDiv.divByThree(num);
    
-   FillTreeValues testnum = new FillTreeValues();
-   int testn = testnum.getNumbersOnly();
-   System.out.println ("getNumbersOnly "+testn);
-   
-   FillTreeValues testnum2 = new FillTreeValues();
-   String testn2 = testnum2.getNumbersOperators();
-   System.out.println ("getNumbersOperators "+testn2);
-   
-   FillTreeValues testnum3 = new FillTreeValues();
-   String testn3 = testnum3.getOperators();
-   System.out.println ("getOperators "+testn3);
-   
+ 
 }
 }
