@@ -162,3 +162,4 @@ pip-log.txt
 # Mac crap
 .DS_Store
 /GPTestBinTree/nbproject/private/
+/StackExample/nbproject/private/

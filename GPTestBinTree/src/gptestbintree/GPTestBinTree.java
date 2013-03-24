@@ -18,13 +18,36 @@ public class GPTestBinTree {
     int randomNodes;
         
     //determine number of nodes
-    randomNodes=1 + (int)(Math.random() * ((7 - 1) + 1));    
-    System.out.println (randomNodes);
-    BinaryTree.buildTree(randomNodes);
+    //randomNodes=1 + (int)(Math.random() * ((7 - 1) + 1)); 
+    //randomNodes=1;
+    //System.out.println (randomNodes);
+    //BinaryTree.buildTree(randomNodes);
     
-   //TestDivisible testDiv = new TestDivisible();
-       //boolean div3 = testDiv.divByThree(num);
+    
+    FillTreeValues2 testFill = new FillTreeValues2();
+    long test = testFill.FillNode();
+    
+    System.out.println ("Printing Returned event: "+(test));
+    
+    
+    
+    
    
- 
+   /** 
+   * Testing random values.
+   * FillTreeValues testnum = new FillTreeValues();
+   int testn = testnum.getNumbers();
+   System.out.println ("getNumbers testn "+testn);
+   
+   FillTreeValues testnum1 = new FillTreeValues();
+   int testn1 = testnum1.getNumbers();
+   System.out.println ("getNumbers testn1 "+testn1);
+   
+   
+   
+   FillTreeValues testnum3 = new FillTreeValues();
+   char op = testnum3.getOperators();
+   System.out.println ("getOperators "+op);
+   */
 }
 }

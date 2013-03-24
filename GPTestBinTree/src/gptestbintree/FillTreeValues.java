@@ -29,6 +29,7 @@ public char getOperators()
         case 1:
             returnOperator='+';
             
+            
             break;
         case 2:  
             returnOperator='-';
