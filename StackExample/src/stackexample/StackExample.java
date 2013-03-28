@@ -47,7 +47,7 @@ public class StackExample {
     n.push (4);
     
     System.out.println ("Next op:"+op.peek()+ " and next n: "+n.peek());
-    
+    System.out.println (n.toString());
     
     }
 }

@@ -12,6 +12,7 @@ public class FillTreeValues {
 int returnNumber,
     randomOp;
 char returnOperator;
+boolean returnprob;
 
 
 public int getNumbers()
@@ -44,6 +45,21 @@ public char getOperators()
     return returnOperator;
 }
 
-
+boolean prob25 (int prob25num)
+    { 
+       
+        switch (prob25num)
+        {
+                case 1: returnprob= false;
+                        break;
+                case 2: returnprob= false;
+                        break;
+                case 3: returnprob= true;
+                        break;
+                case 4: returnprob= false;
+                        break;
+        }           
+        return returnprob;
+    }
 
 }
