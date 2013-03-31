@@ -1,6 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Adapted from Timoth Rolfe
+ * http://penguin.ewu.edu/cscd300/Topic/ExpressionTree/PrefixCalc.txt
+ * 
  */
 package gptestbintree;
 
@@ -8,50 +9,47 @@ package gptestbintree;
  *
  * @author Chad
  */
+
+import java.util.Scanner;
 public class GPTestBinTree {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    int randomNodes;
-        
-    //determine number of nodes
-    randomNodes= 1 + (int)(Math.random() * ((7 - 1) + 1)); 
-  
-    System.out.println ("How many nodes= "+randomNodes);
-    
-    BinaryTree testbin1 = new BinaryTree();
-    testbin1.buildTree(randomNodes);
-    
-  
-    
-    
-    //FillTreeValues2 testFill = new FillTreeValues2();
-    //long test = testFill.FillNode();
-    
-    //System.out.println ("Printing Returned event: "+(test));
-    
-    
-    
     
    
-   /** 
-   * Testing random values.
-   * FillTreeValues testnum = new FillTreeValues();
-   int testn = testnum.getNumbers();
-   System.out.println ("getNumbers testn "+testn);
-   
-   FillTreeValues testnum1 = new FillTreeValues();
-   int testn1 = testnum1.getNumbers();
-   System.out.println ("getNumbers testn1 "+testn1);
-   
-   
-   
-   FillTreeValues testnum3 = new FillTreeValues();
-   char op = testnum3.getOperators();
-   System.out.println ("getOperators "+op);
-   */
-}
+    public static void main(String[] args) 
+            {
+      BinaryExpTree calc;
+      Scanner        console = new Scanner(System.in);
+
+   // Allow for a command-line argument (which would be double-quoted).
+      if ( args.length > 0 )
+      {
+         System.out.println ("Processing string " + args[0]);
+
+         calc = new BinaryExpTree(new Scanner(args[0]));
+      }
+      else
+      {
+         System.out.println
+           ( "Prefix expression, with all elements separated by blanks");
+
+         calc = new BinaryExpTree(new Scanner(console.nextLine()));
+      }
+
+      System.out.println ("\nInput as prefix expression:");
+      calc.showPreFix();
+
+      System.out.println ("\nInput as postfix expression:");
+      calc.showPostFix();
+
+      System.out.println ("\nInput as parenthesized infix expression:");
+      calc.showInFix();
+
+      System.out.println ("\nValue:  " + calc.evaluate());
+
+      System.out.print ("Press <Enter> to exit:  ");
+      console.nextLine();
+   }
 }
