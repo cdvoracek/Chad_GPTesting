@@ -18,16 +18,20 @@ public class GPTestBinTree {
     int randomNodes;
         
     //determine number of nodes
-    //randomNodes=1 + (int)(Math.random() * ((7 - 1) + 1)); 
-    //randomNodes=1;
-    //System.out.println (randomNodes);
-    //BinaryTree.buildTree(randomNodes);
+    randomNodes= 1 + (int)(Math.random() * ((7 - 1) + 1)); 
+  
+    System.out.println ("How many nodes= "+randomNodes);
+    
+    BinaryTree testbin1 = new BinaryTree();
+    testbin1.buildTree(randomNodes);
+    
+  
     
     
-    FillTreeValues2 testFill = new FillTreeValues2();
-    long test = testFill.FillNode();
+    //FillTreeValues2 testFill = new FillTreeValues2();
+    //long test = testFill.FillNode();
     
-    System.out.println ("Printing Returned event: "+(test));
+    //System.out.println ("Printing Returned event: "+(test));
     
     
     
