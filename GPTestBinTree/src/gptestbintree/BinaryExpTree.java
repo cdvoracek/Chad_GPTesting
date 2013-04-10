@@ -11,8 +11,8 @@ package gptestbintree;
  * @author Chad
  */
 
-import java.util.Scanner;    // Specific to Java 1.5.x
-public class BinaryExpTree 
+  // Specific to Java 1.5.x
+public class BinaryExpTree
 {
    /**
     * One node in an expression tree, allowing double values.
@@ -21,6 +21,7 @@ public class BinaryExpTree
     */
    private static class TreeNode
    {
+      private       int      nodenum; // What node is this?
       private final boolean  leaf;   // ?Is this a leaf? else internal
       private final char     op;     // For an internal node, the operator
       private       double   value;  // For a leaf, the value
@@ -28,8 +29,9 @@ public class BinaryExpTree
                              right;  // Right subexpression
 
       // Bare-bones constructor
-      private TreeNode ( boolean leaf, char op, double value )
+      private TreeNode ( int nodenum, boolean leaf, char op, double value )
       {
+         this.nodenum = nodenum;
          this.leaf    = leaf;
          this.op      = op;
          this.value   = value;
@@ -38,14 +40,18 @@ public class BinaryExpTree
       }
 
       // For leaf nodes, show the value; for internal, the operator.
+       @Override
       public String toString()    // To override Object.toString, must be public.
       {  return leaf ? Double.toString(value) : Character.toString(op) ;  }
    }
 
    TreeNode root = null;
-
-   public BinaryExpTree ( Scanner input )
-   {  root = build(input);  }
+   
+   public BinaryExpTree ( )
+   {  FillTreeValues getMaxNodes = new FillTreeValues();
+      int setMaxNodes = getMaxNodes.getMaxNodes();
+      System.out.println ("setMaxNodes ="+setMaxNodes) ;
+       root = build(1, setMaxNodes);}
 
 /**
  * Based on a white-space delimited prefix expression, build the
@@ -53,98 +59,83 @@ public class BinaryExpTree
  * @param  input  The scanner with the expression
  * @return reference to the corresponding binary expression tree
  */
-   private TreeNode build ( Scanner input )
+   private TreeNode build (int nodenum, int maxnodes)
    {
-      boolean  leaf;
+    
+      boolean  leaf,
+               rootnode;
+      char     op;
       String   token;
       double   value;
       TreeNode node;
-
-      leaf = input.hasNextDouble();
-      if ( leaf )
+      node=null;
+         
+      FillTreeValues checkleaf = new FillTreeValues();
+      boolean isLeafTrue = checkleaf.getProbability50();
+      leaf = isLeafTrue;
+      if (nodenum>1)
+        {rootnode=false;}
+        else {rootnode=true;}
+        System.out.println ("rootnode="+rootnode);
+      
+      
+      if (rootnode)
       {
-         value = input.nextDouble();
-         node = new TreeNode ( leaf, '\0', value );
+        System.out.println ("Rootnode is true");
+        FillTreeValues getOp = new FillTreeValues();
+        char nodeop = getOp.getOperators();
+        op = nodeop;
+        System.out.println(root.op);
+         //token = input.next();
+        node  = new TreeNode ( nodenum, leaf, nodeop, 0.0 );
+         
+       nodenum++;
+       System.out.println ("Rootnode before left: next nodenum = "+nodenum);
+       node.left  = build (nodenum, maxnodes);
+       System.out.println (node.left);
+       nodenum++;
+       System.out.println ("Rootnode before right = "+nodenum);
+       node.right = build (++nodenum, maxnodes);
+       System.out.println (node.right);
+        
+       
+       return node;
       }
+              
+              
+            else if (leaf && nodenum<maxnodes)
+            {
+                System.out.println ("1. Leaf is true & less than max");
+                FillTreeValues getValue = new FillTreeValues();
+                double leafValue = getValue.getNumbers();
+                value = leafValue;
+                node = new TreeNode ( nodenum, leaf, '\0', value );
+                
+                return node;   
+            }
+            else if (!leaf && nodenum<maxnodes)
+            {
+                System.out.println ("2. Leaf is false & less than max");
+                FillTreeValues getOp = new FillTreeValues();
+                char nodeop = getOp.getOperators();
+                op = nodeop;
+                //token = input.next();
+                node  = new TreeNode ( nodenum, leaf, nodeop, 0.0 );
+                nodenum++;
+                System.out.println ("Now nodenum = "+nodenum);
+                node.left  = build (nodenum, maxnodes);
+                nodenum++;
+                System.out.println ("Now nodenum = "+nodenum);
+                node.right = build (++nodenum, maxnodes);
+            }
       else
       {
-         token = input.next();
-         node  = new TreeNode ( leaf, token.charAt(0), 0.0 );
-         node.left  = build ( input );
-         node.right = build ( input );
+      System.out.println ("Over limit? MaxNodes = "+maxnodes);
       }
+      
       return node;
    }
-
-/**
- * Show the expression tree as a postfix expression.
- * All the work is done in the private recursive method.
- */
-   public void showPostFix ()
-   {
-      showPostFix ( root );
-      System.out.println();
-   }
-
-   // Postfix expression is the result of a post-order traversal
-   private void showPostFix ( TreeNode node )
-   {
-      if ( node != null )
-      {
-         showPostFix ( node.left );
-         showPostFix ( node.right );
-         System.out.print ( node + " " );
-      }
-   }
-
-/**
- * Show the expression tree as a prefix expression.
- * All the work is done in the private recursive method.
- */
-   public void showPreFix ()
-   {
-      showPreFix ( root );
-      System.out.println();
-   }
-
-   // Prefix expression is the result of a pre-order traversal
-   private void showPreFix ( TreeNode node )
-   {  // NOTE:  removing tail recursion
-      while ( node != null )
-      {
-         System.out.print ( node + " " );
-         showPreFix ( node.left );
-         node = node.right;  // Update parameter for right traversal
-      }
-   }
-
-/**
- * Show the expression tree as a parenthesized infix expression.
- * All the work is done in the private recursive method.
- */
-   public void showInFix ()
-   {
-      showInFix ( root );
-      System.out.println();
-   }
-
-   // Parenthesized infix requires parentheses in both the
-   // pre-order and post-order positions, plus the node
-   // itself in the in-order position.
-   private void showInFix ( TreeNode node )
-   {
-      if ( node != null )
-      {
-         // Note:  do NOT parenthesize leaf nodes
-         if ( ! node.leaf )
-            System.out.print ("( ");        // Pre-order position
-         showInFix ( node.left );
-         System.out.print ( node + " " );   // In-order position
-         showInFix ( node.right );
-         if ( ! node.leaf )                 // Post-order position
-            System.out.print (") ");
-      }
-   }
+ 
 
 /**
  * Evaluate the expression and return its value.
@@ -163,7 +154,7 @@ public class BinaryExpTree
       double result;    // Value to be returned
 
       if ( node.leaf )        // Just get the value of the leaf
-         result = node.value;
+      {result = node.value;}
       else
       {
          // We've got work to do, evaluating the expression

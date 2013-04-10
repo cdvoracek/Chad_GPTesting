@@ -10,11 +10,11 @@ package gptestbintree;
  */
 public class FillTreeValues {
 int returnNumber,
+    returnMaxNodes,
     randomOp;
 char returnOperator;
 boolean returnprob25,
         returnprob50;
-
 
 public int getNumbers()
 {
@@ -68,7 +68,7 @@ boolean getprobability25 ()
         
     }
 //Random return generating true with a probability of 50%
-boolean getprobability50 ()
+boolean getProbability50 ()
     { 
         int prob50num;
         prob50num = (1 + (int)(Math.random() * ((4 - 1) + 1)));  
@@ -89,5 +89,10 @@ boolean getprobability50 ()
         return returnprob50;
         
     }
+public int getMaxNodes()
+{
+returnMaxNodes=1 + (int)(Math.random() * ((7 - 1) + 1));
 
+return returnMaxNodes;
+}    
 }
