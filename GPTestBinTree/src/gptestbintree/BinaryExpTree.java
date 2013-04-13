@@ -85,10 +85,10 @@ public class BinaryExpTree
         FillTreeValues getOp = new FillTreeValues();
         char nodeop = getOp.getOperators();
         op = nodeop;
-        System.out.println(root.op);
+        System.out.println(op);
          //token = input.next();
         node  = new TreeNode ( nodenum, leaf, nodeop, 0.0 );
-         
+        System.out.println ("Show node=" +node); 
        nodenum++;
        System.out.println ("Rootnode before left: next nodenum = "+nodenum);
        node.left  = build (nodenum, maxnodes);
