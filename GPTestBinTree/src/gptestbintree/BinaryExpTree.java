@@ -16,7 +16,7 @@ public class BinaryExpTree
 {
    /**
     * One node in an expression tree, allowing double values.
-    *
+    * hi chad
     * @author  Timothy Rolfe
     */
    private static class TreeNode
