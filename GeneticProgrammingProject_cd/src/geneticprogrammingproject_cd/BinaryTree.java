@@ -20,7 +20,7 @@ package geneticprogrammingproject_cd;
  */
 
 
-public class BinaryTree {
+public class BinaryTree 
 {
    /**
     * One node in an expression tree, allowing double values.
@@ -55,8 +55,8 @@ public class BinaryTree {
 
    TreeNode root = null;
    
-   public BinaryExpTree ( )
-   {  FillTreeValues getMaxNodes = new FillTreeValues();
+   public BinaryTree ( )
+   {  GenerateNode getMaxNodes = new GenerateNode();
       int setMaxNodes = getMaxNodes.getMaxNodes();
       System.out.println ("setMaxNodes ="+setMaxNodes) ;
        root = build(1, setMaxNodes);}
@@ -84,19 +84,19 @@ public class BinaryTree {
       if (nodenum>1)
         {rootnode=false;}
         else {rootnode=true;}
-        System.out.println ("rootnode="+rootnode);
+        //System.out.println ("rootnode="+rootnode);
       
       
       if (rootnode)
       {
-        System.out.println ("Rootnode is true");
+        //System.out.println ("Rootnode is true");
         GenerateNode getOp = new GenerateNode();
         char nodeop = getOp.getOperators();
         op = nodeop;
-        System.out.println(op);
+        System.out.println("rootnode op: "+op);
          //token = input.next();
         node  = new TreeNode ( nodenum, leaf, nodeop, 0.0 );
-        System.out.println ("Show node=" +node); 
+        System.out.println ("Show rootnode=" +node); 
        nodenum++;
        System.out.println ("Rootnode before left: next nodenum = "+nodenum);
        node.left  = build (nodenum, maxnodes);

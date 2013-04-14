@@ -21,24 +21,35 @@ package geneticprogrammingproject_cd;
  *          generators.  
  */
 public class GenerateNode {
-int returnNumber,
+int     returnRandom,
+        returnNumber,
     returnMaxNodes,
     randomOp;
 char returnOperator;
 boolean returnprob25,
         returnprob50;
 
+//Random Formula:  Min + (int)(Math.random()*((Max-Min)+1))
+public int setRandom(int min, int max)
+{
+returnRandom = min + (int)(Math.random()*((max-min)+1));
+
+return returnRandom;
+}
 
 public int getNumbers()
 {
-returnNumber=1 + (int)(Math.random() * ((9 - 1) + 1));
+
+returnNumber = setRandom(1,9);
+//returnNumber=1 + (int)(Math.random() * ((9 - 1) + 1));
 return returnNumber;
 }
 
 
 public char getOperators()
 {
-    randomOp=1 + (int)(Math.random() * ((4 - 1) + 1));
+    randomOp= setRandom(1,4);
+    //randomOp=1 + (int)(Math.random() * ((4 - 1) + 1));
     switch (randomOp)
         {
         case 1:
@@ -62,7 +73,8 @@ public char getOperators()
 boolean getProbability25 ()
     { 
         int prob25num;
-        prob25num = (1 + (int)(Math.random() * ((4 - 1) + 1)));  
+        prob25num= setRandom(1,4);
+        //prob25num = (1 + (int)(Math.random() * ((4 - 1) + 1)));  
         switch (prob25num)
         {
                 case 1: returnprob25= false;
@@ -84,7 +96,8 @@ boolean getProbability25 ()
 boolean getProbability50 ()
     { 
         int prob50num;
-        prob50num = (1 + (int)(Math.random() * ((4 - 1) + 1)));  
+        prob50num = setRandom (1,4);
+        //prob50num = (1 + (int)(Math.random() * ((4 - 1) + 1)));  
         switch (prob50num)
         {
                 case 1: returnprob50= true;
@@ -104,7 +117,8 @@ boolean getProbability50 ()
     }
 public int getMaxNodes()
 {
-returnMaxNodes=1 + (int)(Math.random() * ((7 - 1) + 1));
+    returnMaxNodes = setRandom(3,7);
+    //returnMaxNodes=3 + (int)(Math.random() * ((7 - 3) + 1));
 
 return returnMaxNodes;
 }    

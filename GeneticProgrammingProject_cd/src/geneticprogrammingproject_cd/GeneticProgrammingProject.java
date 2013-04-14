@@ -26,10 +26,7 @@ public class GeneticProgrammingProject {
 
 
         calc = new BinaryTree();
-        int ab;
-        ab = 1;
-        ab = ++ab;
-        System.out.println(ab);
+      
 
     }
 }
