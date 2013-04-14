@@ -117,7 +117,7 @@ boolean getProbability50 ()
     }
 public int getMaxNodes()
 {
-    returnMaxNodes = setRandom(3,7);
+    returnMaxNodes = setRandom(3,10);
     //returnMaxNodes=3 + (int)(Math.random() * ((7 - 3) + 1));
 
 return returnMaxNodes;

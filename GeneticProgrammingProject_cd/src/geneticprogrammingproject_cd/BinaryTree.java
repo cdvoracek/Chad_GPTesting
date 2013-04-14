@@ -93,18 +93,21 @@ public class BinaryTree
         GenerateNode getOp = new GenerateNode();
         char nodeop = getOp.getOperators();
         op = nodeop;
-        System.out.println("rootnode op: "+op);
+        //System.out.println("rootnode op: "+op);
          //token = input.next();
-        node  = new TreeNode ( nodenum, leaf, nodeop, 0.0 );
-        System.out.println ("Show rootnode=" +node); 
+        node  = new TreeNode ( nodenum, leaf, op, 0.0 );
+        System.out.println ("Show node.nodenum=" +node.nodenum); 
+        System.out.println ("Show node.op=" +node.op);
+        System.out.println ("Show node.op=" +node.value); 
+        
        nodenum++;
-       System.out.println ("Rootnode before left: next nodenum = "+nodenum);
+       //System.out.println ("Rootnode before left: next nodenum = "+nodenum);
        node.left  = build (nodenum, maxnodes);
-       System.out.println (node.left);
+       System.out.println ("node left: "+node.left);
        nodenum++;
-       System.out.println ("Rootnode before right = "+nodenum);
+       //System.out.println ("Rootnode before right = "+nodenum);
        node.right = build (++nodenum, maxnodes);
-       System.out.println (node.right);
+       System.out.println ("node right: "+node.right);
         
        
        return node;
