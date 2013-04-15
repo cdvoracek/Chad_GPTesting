@@ -23,9 +23,10 @@ package geneticprogrammingproject_cd;
 public class GenerateNode {
 int     returnRandom,
         returnNumber,
-    returnMaxNodes,
-    randomOp;
-char returnOperator;
+        returnMaxNodes,
+        returnMaxDepth,
+        randomOp;
+char    returnOperator;
 boolean returnprob25,
         returnprob50;
 
@@ -117,9 +118,15 @@ boolean getProbability50 ()
     }
 public int getMaxNodes()
 {
-    returnMaxNodes = setRandom(3,10);
+    returnMaxNodes = setRandom(8,16);
     //returnMaxNodes=3 + (int)(Math.random() * ((7 - 3) + 1));
 
 return returnMaxNodes;
-}    
+}  
+
+public int getMaxDepth()
+{
+     returnMaxDepth = setRandom(2, 5);
+return returnMaxDepth;
+}
 }

@@ -79,7 +79,7 @@ public class BinaryTree
       node=null;
          
       GenerateNode checkleaf = new GenerateNode();
-      boolean isLeafTrue = checkleaf.getProbability50();
+      boolean isLeafTrue = checkleaf.getProbability25();
       leaf = isLeafTrue;
       if (nodenum>1)
         {rootnode=false;}
@@ -96,17 +96,19 @@ public class BinaryTree
         //System.out.println("rootnode op: "+op);
          //token = input.next();
         node  = new TreeNode ( nodenum, leaf, op, 0.0 );
-        System.out.println ("Show node.nodenum=" +node.nodenum); 
-        System.out.println ("Show node.op=" +node.op);
-        System.out.println ("Show node.op=" +node.value); 
+        System.out.println ("Show root node.nodenum=" +node.nodenum); 
+        System.out.println ("Show root node.op=" +node.op);
+        System.out.println ("Show root node.op=" +node.value); 
+        System.out.println ("Show root node.leaf="+node.leaf);
         
        nodenum++;
-       //System.out.println ("Rootnode before left: next nodenum = "+nodenum);
+       System.out.println ("Rootnode before left: next nodenum = "+nodenum);
        node.left  = build (nodenum, maxnodes);
        System.out.println ("node left: "+node.left);
+       
        nodenum++;
-       //System.out.println ("Rootnode before right = "+nodenum);
-       node.right = build (++nodenum, maxnodes);
+       System.out.println ("Rootnode before right = "+nodenum);
+       node.right = build (nodenum, maxnodes);
        System.out.println ("node right: "+node.right);
         
        
@@ -121,7 +123,9 @@ public class BinaryTree
                 double leafValue = getValue.getNumbers();
                 value = leafValue;
                 node = new TreeNode  ( nodenum, leaf, '\0', value );
-                
+                System.out.println ("Show node.nodenum=" +node.nodenum); 
+                System.out.println ("Show node.value=" +node.value); 
+                System.out.println ("Show node.leaf="+node.leaf);
                 return node;   
             }
             else if (!leaf && nodenum<maxnodes)
@@ -131,13 +135,17 @@ public class BinaryTree
                 char nodeop = getOp.getOperators();
                 op = nodeop;
                 //token = input.next();
-                node  = new TreeNode ( nodenum, leaf, nodeop, 0.0 );
+                node  = new TreeNode ( nodenum, leaf, op, 0.0 );
+                System.out.println ("Show node.nodenum=" +node.nodenum); 
+                System.out.println ("Show node.op=" +node.op);
+                System.out.println ("Show node.op=" +node.value);
+                System.out.println ("Show node.leaf="+node.leaf);
                 nodenum++;
                 System.out.println ("Now nodenum = "+nodenum);
                 node.left  = build (nodenum, maxnodes);
                 nodenum++;
                 System.out.println ("Now nodenum = "+nodenum);
-                node.right = build (++nodenum, maxnodes);
+                node.right = build (nodenum, maxnodes);
             }
       else
       {
