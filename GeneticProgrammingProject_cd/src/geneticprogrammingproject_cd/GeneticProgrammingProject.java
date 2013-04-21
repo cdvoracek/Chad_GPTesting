@@ -24,7 +24,7 @@ public class GeneticProgrammingProject {
 
         BinaryTree calc;
 
-
+        BinaryTree.setMaxValue(5);
         calc = new BinaryTree();
    
 

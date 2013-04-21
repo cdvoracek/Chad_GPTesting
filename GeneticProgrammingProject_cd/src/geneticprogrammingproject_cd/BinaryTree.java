@@ -28,17 +28,23 @@ public class BinaryTree
     * @author  Timothy Rolfe
     */
    
-    private static int maxdepth = 1; //variable for max depth
-        /** maxdepth starts at a value of 1 only to establish root node. 
+    private static int maxcounter = 1; //variable for max depth
+        /** maxcounter starts at a value of 1 only to establish root node. 
          *  After that each time max resets in will rest to 2 and grow from 
          *  there to make sure rootnode is not entered but will allow each 
          *  branch to grow.  
          */
     
-    private static void setMaxDepth()
+    public static void setMaxValue(int val)
     {
-    maxdepth++;
-    System.out.println ("Max Depth = "+maxdepth );
+    int maxvalue;
+    
+    maxvalue = val;
+    }
+    private static void upMaxCounter()
+    {
+    maxcounter++;
+    System.out.println ("Max Depth = "+maxcounter );
     }
     
     
@@ -121,7 +127,7 @@ public class BinaryTree
       GenerateNode checkleaf = new GenerateNode();
       boolean isLeafTrue = checkleaf.getProbability25();
       leaf = isLeafTrue;
-      if (maxdepth == 1)
+      if (maxcounter == 1)
         {rootnode=true;}
         else {rootnode=false;}
         //System.out.println ("rootnode="+rootnode);
@@ -134,7 +140,7 @@ public class BinaryTree
         char nodeop = getOp.getOperators();
         op = nodeop;
         leaf=false;
-        setMaxDepth();
+        upMaxCounter();
         //System.out.println("rootnode op: "+op);
          //token = input.next();
         node  = new TreeNode (leaf, op, 0.0 );
@@ -151,9 +157,9 @@ public class BinaryTree
     
         System.out.println ("BEGIN ROOT RIGHT");
         //TO DO:  Set array value Right here
-        //Must reset maxdepth here. 
-        maxdepth = 2;
-        System.out.println ("Check Max before ROOT Right ="+maxdepth);
+        //Must reset maxcounter here. 
+        maxcounter = 2;
+        System.out.println ("Check Max before ROOT Right ="+maxcounter);
         node.right = build ();
         System.out.println ("ROOT node right: "+node.right);
         
@@ -162,9 +168,9 @@ public class BinaryTree
       }
               
               
-            else if (leaf && maxdepth<5)
+            else if (leaf && maxcounter<5)
             {
-                System.out.println ("1. Begin(leaf && maxdepth<5)  ");
+                System.out.println ("1. Begin(leaf && maxcounter<5)  ");
                 GenerateNode getValue = new GenerateNode();
                 double leafValue = getValue.getNumbers();
                 value = leafValue;
@@ -174,10 +180,10 @@ public class BinaryTree
                 System.out.println ("Show node.leaf="+node.leaf);
                 return node;   
             }
-            else if (!leaf && maxdepth<5)
+            else if (!leaf && maxcounter<5)
             {
-                System.out.println ("2. Begin(!leaf && maxdepth<5)");
-                setMaxDepth();
+                System.out.println ("2. Begin(!leaf && maxcounter<5)");
+                upMaxCounter();
                 GenerateNode getOp = new GenerateNode();
                 char nodeop = getOp.getOperators();
                 op = nodeop;
@@ -188,9 +194,9 @@ public class BinaryTree
                 System.out.println ("Show node.op=" +node.value);
                 System.out.println ("Show node.leaf="+node.leaf);
                 
-                if (maxdepth>=5)
+                if (maxcounter>=5)
                 {
-                System.out.println ("3. Begin Final (maxdepth>=5)");    
+                System.out.println ("3. Begin Final (maxcounter>=5)");    
                 node.left = buildFinal();
                 //System.out.println ("About to begin Left");
                 node.right  = buildFinal();
@@ -203,7 +209,7 @@ public class BinaryTree
                 node.right = build ();
                 }
                 //System.out.println ("About to begin Right");
-                ;
+                
                 }
             
 
@@ -211,9 +217,9 @@ public class BinaryTree
             {
             System.out.println ("End of Build-go back to right");
             //reset depth max for next branch.
-            maxdepth=2;
+            maxcounter=2;
             }
-      
+     
       return node;
       
    }
