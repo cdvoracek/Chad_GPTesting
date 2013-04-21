@@ -29,7 +29,11 @@ public class BinaryTree
     */
    
     private static int maxdepth = 1; //variable for max depth
-   
+        /** maxdepth starts at a value of 1 only to establish root node. 
+         *  After that each time max resets in will rest to 2 and grow from 
+         *  there to make sure rootnode is not entered but will allow each 
+         *  branch to grow.  
+         */
     
     private static void setMaxDepth()
     {
@@ -110,7 +114,9 @@ public class BinaryTree
       String   token;
       double   value;
       TreeNode node;
+      
       node=null;
+   
          
       GenerateNode checkleaf = new GenerateNode();
       boolean isLeafTrue = checkleaf.getProbability25();
@@ -137,14 +143,19 @@ public class BinaryTree
         System.out.println ("Show root node.value=" +node.value); 
         System.out.println ("Show root node.leaf="+node.leaf);
         
-      
-       node.left  = build ();
-       System.out.println ("node left: "+node.left);
+        System.out.println ("BEGIN ROOT LEFT");
+        //TO DO:  Set array value Left here
+        node.left  = build ();
+        System.out.println ("ROOT node left: "+node.left);
        
     
-       
-       node.right = build ();
-       System.out.println ("node right: "+node.right);
+        System.out.println ("BEGIN ROOT RIGHT");
+        //TO DO:  Set array value Right here
+        //Must reset maxdepth here. 
+        maxdepth = 2;
+        System.out.println ("Check Max before ROOT Right ="+maxdepth);
+        node.right = build ();
+        System.out.println ("ROOT node right: "+node.right);
         
        
        return node;
