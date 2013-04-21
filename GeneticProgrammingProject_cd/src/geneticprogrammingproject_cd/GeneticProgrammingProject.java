@@ -26,7 +26,7 @@ public class GeneticProgrammingProject {
 
 
         calc = new BinaryTree();
-      
+   
 
     }
 }
