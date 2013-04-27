@@ -126,7 +126,7 @@ return returnMaxNodes;
 
 public int getMaxDepth()
 {
-     returnMaxDepth = setRandom(2, 5);
+     returnMaxDepth = setRandom(1, 10);
 return returnMaxDepth;
 }
 }

@@ -13,6 +13,9 @@ package geneticprogrammingproject_cd;
  *
  * This Class with generate the Binary Expression Tree.
  */
+
+import java.util.*;
+
 public class BinaryTree {
 
     /**
@@ -20,12 +23,14 @@ public class BinaryTree {
      *
      * @author Timothy Rolfe
      */
-    private static int maxcounter = 1; //variable for max depth
-    private static int maxvalue = 5;
+    private static int maxcounter = 0; //variable for max depth
+    
+    
+    private static int maxvalue = 3;//default value for depth
 
     /**
-     * maxcounter starts at a value of 1 only to establish root node. After that
-     * each time max resets in will rest to 2 and grow from there to make sure
+     * maxcounter starts at a value of 0 only to establish root node. After that
+     * each time max resets in will rest to 1 and grow from there to make sure
      * rootnode is not entered but will allow each branch to grow.
      */
     private static void upMaxCounter() {
@@ -33,22 +38,25 @@ public class BinaryTree {
         System.out.println("Max Depth = " + maxcounter);
     }
 
-    private static class TreeNode {
+    private class TreeNode {
 
         private final boolean leaf;   // ?Is this a leaf? else internal
         private final char op;     // For an internal node, the operator
         private double value;  // For a leaf, the value
         private TreeNode left, // Left subexpression for an internal node
-                right;  // Right subexpression
+                right,  // Right subexpression
+                parent;
 
         // Bare-bones constructor
-        private TreeNode(boolean leaf, char op, double value) {
+        private TreeNode(boolean leaf, char op, double value, TreeNode parent) 
+        {
 
             this.leaf = leaf;
             this.op = op;
             this.value = value;
             this.left = null;   // Empty to start
             this.right = null;
+            this.parent= parent;
         }
 
         // For leaf nodes, show the value; for internal, the operator.
@@ -61,47 +69,43 @@ public class BinaryTree {
     TreeNode root = null;
 
     public BinaryTree() {
-   
-        root = build();
-        //System.out.println ("Line 64"+root);
+        
+        /*  Initialize the random generator after figuring out how to write
+         *  the expression tree formula.
+        
+            GenerateNode maxdepth = new GenerateNode();
+            int depth = maxdepth.getMaxDepth();
+            maxvalue = depth;
+  
+      
+         */
+        
+        root = build(null);
+        
+      
+        //System.out.println (root.op);
+        //System.out.println (root.left);
+        //System.out.println (root.right);
+        //System.out.println ("root left left"+root.left.left);
+       
     }
 
-    private TreeNode buildFinal() {
-        boolean leaf = false,
-                rootnode;
-        char op;
-        String token;
-        double value;
-        TreeNode node;
-        node = null;
-
-
-        System.out.println("Building final leafs in this branch");
-        GenerateNode getValue = new GenerateNode();
-        double leafValue = getValue.getNumbers();
-        value = leafValue;
-        node = new TreeNode(leaf, '\0', value);
-
-        System.out.println("Show node.value=" + node.value);
-        System.out.println("Show node.leaf=" + node.leaf);
-        return node;
-
-    }
-
-    private TreeNode build() {
+    
+    private TreeNode build(TreeNode parentnode) {
 
         boolean leaf,
                 rootnode;
         char op;
         String token;
         double value;
-        TreeNode node;
-
+        TreeNode node,
+                parent;
+        parent = parentnode;
         node = null;
         rootnode = false;
         leaf = false;
 
-        if (maxcounter == 1) {
+        if (maxcounter == 0) {
             rootnode = true;
         } else if (maxcounter < maxvalue) {
 
@@ -114,8 +118,8 @@ public class BinaryTree {
 
 
 
-        System.out.println("rootnode=" + rootnode);
-        System.out.println("leaf =" + leaf);
+        //System.out.println("rootnode=" + rootnode);
+        //System.out.println("leaf =" + leaf);
 
 
         if (rootnode) {
@@ -124,191 +128,185 @@ public class BinaryTree {
             char nodeop = getOp.getOperators();
             op = nodeop;
             leaf = false;
+            
             upMaxCounter();
             //System.out.println("rootnode op: "+op);
             //token = input.next();
-            node = new TreeNode(leaf, op, 0.0);
-
+            
+            //System.out.println ("show root parent="+parent);
+            
+            node = new TreeNode(leaf, op, 0.0,null);
+            
+            //System.out.println ("show root node= "+node);
+            //System.out.println ("show root parent="+parent);
+            
+            parentnode=node;
             System.out.println("Show root node.op=" + node.op);
-            System.out.println("Show root node.value=" + node.value);
-            System.out.println("Show root node.leaf=" + node.leaf);
+            
+            System.out.println("Show root parent send="+parentnode);
+            //System.out.println("Show root.parent="+root.parent);
+            //System.out.println("Show root node.value=" + node.value);
+            //System.out.println("Show root node.leaf=" + node.leaf);
 
             System.out.println("BEGIN ROOT LEFT");
             //TO DO:  Set array value Left here
-            node.left = build();
-            System.out.println("ROOT node left: " + node.left);
+            node.left = build(parentnode);
+           
 
-
+            //System.out.println ("show root node= "+node);
+            //System.out.println ("show root parent="+parent);
+            
+           
+            //System.out.println("Show root node.op=" + node.op);
             System.out.println("BEGIN ROOT RIGHT");
             //TO DO:  Set array value Right here
             //Must reset maxcounter here. 
-            maxcounter = 2;
-            System.out.println("Check Max before ROOT Right =" + maxcounter);
-            node.right = build();
-            System.out.println("ROOT node right: " + node.right);
-
+            maxcounter = 1;
+            //System.out.println("Check Max before ROOT Right =" + maxcounter);
+            node.right = build(parentnode);
+            //System.out.println ("show root node= "+node);
+            //System.out.println ("show root parent="+parent);
+            
+           
+           //System.out.println("Show root node.op=" + node.op);
 
             return node;
         } else if (!rootnode && leaf) {
-            System.out.println("1. Begin(!rootnode && leaf )");
+            System.out.println("Leaf");
             GenerateNode getValue = new GenerateNode();
             double leafValue = getValue.getNumbers();
             value = leafValue;
-            node = new TreeNode(leaf, '\0', value);
+            node = new TreeNode(leaf, '\0', value,parentnode);
+            
+            
 
             System.out.println("Show node.value=" + node.value);
-            System.out.println("Show node.leaf=" + node.leaf);
+            System.out.println("show this node parent="+node.parent);
+            //parentnode=node;//reassign parent node to this.node
+            System.out.println ("Show reassign parent to send="+parentnode);
+            //System.out.println("Show node.leaf=" + node.leaf);
             return node;
         } else if (!rootnode && !leaf) {
-            System.out.println("2. Begin(!rootnode && !leaf)");
-            upMaxCounter();
+            System.out.println("Operator");
+            
             GenerateNode getOp = new GenerateNode();
             char nodeop = getOp.getOperators();
             op = nodeop;
             //token = input.next();
-            node = new TreeNode(leaf, op, 0.0);
-
+            node = new TreeNode(leaf, op, 0.0,parentnode);
+            upMaxCounter();
             System.out.println("Show node.op=" + node.op);
-            System.out.println("Show node.op=" + node.value);
-            System.out.println("Show node.leaf=" + node.leaf);
+            System.out.println("show this node parent="+node.parent);
+            parentnode=node;//reassign parent node to this.node
+            System.out.println ("Show reassign parent to sent="+parentnode);
+            //System.out.println("Show node.op=" + node.value);
+            //System.out.println("Show node.leaf=" + node.leaf);
 
 
-            System.out.println("Begin build left");
-            node.left = build();
-            System.out.println("Begin build right");
-            node.right = build();
-            System.out.println("just complete ");
+            System.out.println("BUILD LEFT");
+            node.left = build(parentnode);
+            //System.out.println (node.op);
+             //System.out.println (node.left);
+             //System.out.println (node.right);
+            
+            System.out.println("BUILD RIGHT");
+            node.right = build(parentnode);
+            //System.out.println (node.op);
+             //System.out.println (node.left);
+             //System.out.println (node.right);
+            
+            //System.out.println("NEXT");
+            
             return node;
         } //System.out.println ("About to begin Right");
         else {
             System.out.println("End of Build-go back to right");
             //reset depth max for next branch.
-            maxcounter = 2;
+            maxcounter = 1;
         }
 
         return node;
 
     }
-
-    /**
-     * Show the expression tree as a postfix expression. All the work is done in
-     * the private recursive method.
+  /*
+     * Recursively determines the number of descendants of the specified node.
      */
-    public void showPostFix() {
-        System.out.println("Line 168" + root);
-        showPostFix(root);
-        System.out.println();
+    private static int numDescendants(TreeNode n) {
+        /*** implement this method for PS 4 ***/
+
+        return 0;
     }
 
-    // Postfix expression is the result of a post-order traversal
-    private void showPostFix(TreeNode node) {
-        if (node != null) {
-            showPostFix(node.left);
-            showPostFix(node.right);
-            System.out.print(node + " ");
+    /** Returns a preorder iterator for this tree. */
+    public LinkedTreeIterator preorderIterator() {
+        return new PreorderIterator();
+    }
+
+    /** Returns an inorder iterator for this tree. */
+    public LinkedTreeIterator inorderIterator() {
+        /*** implement this method for PS 4 ***/
+
+        return null;
+    }
+
+    /*** inner class for a preorder iterator ***/
+    private class PreorderIterator implements LinkedTreeIterator {
+        private TreeNode nextNode;
+
+        private PreorderIterator() {
+            // The traversal starts with the root node.
+            nextNode = root;
         }
-    }
 
-    /**
-     * Show the expression tree as a prefix expression. All the work is done in
-     * the private recursive method.
-     */
-    public void showPreFix() {
-        System.out.println("Line 190" + root);
-        showPreFix(root);
-        System.out.println();
-    }
-
-    // Prefix expression is the result of a pre-order traversal
-    private void showPreFix(TreeNode node) {  // NOTE:  removing tail recursion
-        while (node != null) {
-            System.out.print(node + " ");
-            showPreFix(node.left);
-            node = node.right;  // Update parameter for right traversal
+        @Override
+        public boolean hasNext() {
+            return (nextNode != null);
         }
-    }
 
-    /**
-     * Show the expression tree as a parenthesized infix expression. All the
-     * work is done in the private recursive method.
-     */
-    public void showInFix() {
-        showInFix(root);
-        System.out.println();
-    }
+        @Override
+        public int next() {
+            if (nextNode == null)
+                throw new NoSuchElementException("The next node is null");
 
-    // Parenthesized infix requires parentheses in both the
-    // pre-order and post-order positions, plus the node
-    // itself in the in-order position.
-    private void showInFix(TreeNode node) {
-        if (node != null) {
-            // Note:  do NOT parenthesize leaf nodes
-            if (!node.leaf) {
-                System.out.print("( ");        // Pre-order position
+           // Store a copy of the key to be returned.
+            int key = (int)nextNode.value;
+            
+            // Advance nextNode.
+            if (nextNode.left != null)
+                nextNode = nextNode.left;
+            else if (nextNode.right != null)
+                nextNode = nextNode.right;
+            else {
+                // We've just visited a leaf node.
+                // Go back up the tree until we find a node
+                // with a right child that we haven't seen yet.
+                TreeNode parent = nextNode.parent;
+                TreeNode child = nextNode;
+                while (parent != null &&
+                  (parent.right == child || parent.right == null)) {
+                    child = parent;
+                    parent = parent.parent;
+                }
+
+                if (parent == null)
+                    nextNode = null;  // the traversal is complete
+                else
+                    nextNode = parent.right;
             }
-            showInFix(node.left);
-            System.out.print(node + " ");   // In-order position
-            showInFix(node.right);
-            if (!node.leaf) // Post-order position
-            {
-                System.out.print(") ");
-            }
+
+            return key;
         }
     }
+/**
+ * An interface that describes the functionality that must be supported
+ * by classes that implement iterators for LinkedTree objects.
+ */
+interface LinkedTreeIterator {
+    // Are there other nodes to see in this traversal?
+    boolean hasNext();
 
-    /**
-     * Evaluate the expression and return its value. All the work is done in the
-     * private recursive method.
-     *
-     * @return the value of the expression tree.
-     */
-    public double evaluate() {
-        return root == null ? 0.0 : evaluate(root);
-    }
-
-    // Evaluate the expression:  for internal nodes, this amounts
-    // to a post-order traversal, in which the processing is doing
-    // the actual arithmetic.  For leaf nodes, it is simply the
-    // value of the node.
-    private double evaluate(TreeNode node) {
-        double result;    // Value to be returned
-
-        if (node.leaf) // Just get the value of the leaf
-        {
-            result = node.value;
-        } else {
-            // We've got work to do, evaluating the expression
-            double left, right;
-            char operator = node.op;
-
-            // Capture the values of the left and right subexpressions
-            left = evaluate(node.left);
-            right = evaluate(node.right);
-
-            // Do the arithmetic, based on the operator
-            switch (operator) {
-                case '-':
-                    result = left - right;
-                    break;
-                case '*':
-                    result = left * right;
-                    break;
-                case '/':
-                    result = left / right;
-                    break;
-                case '^':
-                    result = Math.pow(left, right);
-                    break;
-                // NOTE:  allow fall-through from default to case '+'
-                default:
-                    System.out.println("Unrecognized operator "
-                            + operator + " treated as +.");
-                case '+':
-                    result = left + right;
-                    break;
-            }
-        }
-        // Return either the leaf's value or the one we just calculated.
-        return result;
-    }
+    // Return the value of the key in the next node in the
+    // traversal, and advance the position of the iterator.
+    int next();
+}
 }
