@@ -72,6 +72,7 @@ public class BinaryTree {
         
         /*  Initialize the random generator after figuring out how to write
          *  the expression tree formula.
+         
         
             GenerateNode maxdepth = new GenerateNode();
             int depth = maxdepth.getMaxDepth();
@@ -81,12 +82,15 @@ public class BinaryTree {
          */
         
         root = build(null);
-        
-      
-        //System.out.println (root.op);
-        //System.out.println (root.left);
-        //System.out.println (root.right);
-        //System.out.println ("root left left"+root.left.left);
+        int testingleafnum = leafCount();
+       System.out.println ("leafCount ="+ testingleafnum);
+       System.out.println ("begin pre order print...");
+       
+       preorderPrint();
+       System.out.println();
+       System.out.println ("begin pre order print...");
+       postorderPrint();
+       
        
     }
 
@@ -182,8 +186,7 @@ public class BinaryTree {
 
             System.out.println("Show node.value=" + node.value);
             System.out.println("show this node parent="+node.parent);
-            //parentnode=node;//reassign parent node to this.node
-            System.out.println ("Show reassign parent to send="+parentnode);
+           
             //System.out.println("Show node.leaf=" + node.leaf);
             return node;
         } else if (!rootnode && !leaf) {
@@ -198,7 +201,7 @@ public class BinaryTree {
             System.out.println("Show node.op=" + node.op);
             System.out.println("show this node parent="+node.parent);
             parentnode=node;//reassign parent node to this.node
-            System.out.println ("Show reassign parent to sent="+parentnode);
+            System.out.println ("Show reassign parent to send="+parentnode);
             //System.out.println("Show node.op=" + node.value);
             //System.out.println("Show node.leaf=" + node.leaf);
 
@@ -228,6 +231,48 @@ public class BinaryTree {
         return node;
 
     }
+    
+    /**
+     * Returns the number of leaf nodes in the tree.
+     *
+     * Public "wrapper" method that gets the recursion going by
+     * passing in the root of the entire tree (the instance 
+     * variable root) to the first call to the actual recursive
+     * method leafCountTree()
+     */
+    public int leafCount() {
+        return leafCountTree(root);
+    }
+    
+   /**
+     * leafCountTree()
+     *
+     * Returns the number of leaf nodes in the subtree rooted at
+     * root.
+     */
+    private static int leafCountTree ( TreeNode root ) {
+        
+        // There are 0 leaf nodes in an empty tree:
+
+        if ( root == null ) {
+            return 0;
+        }
+
+        // There is 1 leaf node in a tree consisting of just
+        // a leaf node:
+
+        if ( root.left == null && root.right == null ) {
+            return 1;
+        }
+
+        // Otherwise, if root itself is not a leaf node, the
+        // number of leaf nodes in the tree will be equal to
+        // the number of leaf nodes in the left subtree plus
+        // the number of leaf nodes in the right subtree:
+
+        return leafCountTree(root.left) + leafCountTree(root.right);
+    }  
+    
   /*
      * Recursively determines the number of descendants of the specified node.
      */
@@ -237,6 +282,58 @@ public class BinaryTree {
         return 0;
     }
 
+   //START ADDITIONS
+/**
+     * Prints the keys of the tree in the order given by a preorder traversal.
+     * Invokes the recursive preorderPrintTree method to do the work.
+     */
+    public void preorderPrint() {
+        if (root != null)
+            preorderPrintTree(root);      
+    }
+    /*
+     * Recursively performs a preorder traversal of the tree/subtree
+     * whose root is specified, printing the keys of the visited nodes.
+     * Note that the parameter is *not* necessarily the root of the 
+     * entire tree. 
+     */
+    private static void preorderPrintTree(TreeNode root) {
+        if (root.leaf)
+            System.out.print(root.value + " ");
+        else System.out.print(root.op+" ");
+        if (root.left != null)
+            preorderPrintTree(root.left);
+        if (root.right != null)
+            preorderPrintTree(root.right);
+    }
+     /**
+     * Prints the keys of the tree in the order given by a postorder traversal.
+     * Invokes the recursive postorderPrintTree method to do the work.
+     */
+    public void postorderPrint() {
+        if (root != null)
+            postorderPrintTree(root);      
+    }
+
+    /*
+     * Recursively performs a postorder traversal of the tree/subtree
+     * whose root is specified, printing the keys of the visited nodes.
+     * Note that the parameter is *not* necessarily the root of the 
+     * entire tree. 
+     */
+    private static void postorderPrintTree(TreeNode root) {
+        if (root.left != null)
+            postorderPrintTree(root.left);
+        if (root.right != null)
+            postorderPrintTree(root.right);
+        if (root.leaf)
+            System.out.print(root.value + " ");
+        else System.out.print(root.op+" ");
+    }
+    
+    
+    
+    
     /** Returns a preorder iterator for this tree. */
     public LinkedTreeIterator preorderIterator() {
         return new PreorderIterator();
