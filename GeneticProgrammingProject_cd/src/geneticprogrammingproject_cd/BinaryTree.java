@@ -35,7 +35,7 @@ public class BinaryTree {
      */
     private static void upMaxCounter() {
         maxcounter++;
-        System.out.println("Max Depth = " + maxcounter);
+        //System.out.println("Max Depth = " + maxcounter);
     }
 
     private class TreeNode {
@@ -88,7 +88,7 @@ public class BinaryTree {
        
        preorderPrint();
        System.out.println();
-       System.out.println ("begin pre order print...");
+       System.out.println ("begin post order print...");
        postorderPrint();
        
        
